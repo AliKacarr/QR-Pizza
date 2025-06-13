@@ -4,6 +4,8 @@
 
 QR Pizza, Taş Fırın Pizza için geliştirilmiş modern bir sipariş sistemidir. Müşteriler, masa üzerindeki QR kodu okutarak menüye erişebilir, sipariş verebilir ve ödeme yapabilirler. Sistem, hem müşteriler hem de restoran yönetimi için kullanıcı dostu bir arayüz sunmaktadır.
 
+https://www.youtube.com/watch?v=uMhCthcU_sE
+
 ## ✨ Özellikler
 
 ### 👥 Müşteriler İçin
@@ -48,7 +50,7 @@ QR Pizza, Taş Fırın Pizza için geliştirilmiş modern bir sipariş sistemidi
 1. Projeyi klonlayın:
 
 ```bash
-git clone https://github.com/AliKacarr/qr-pizza.git
+git clone https://github.com/AliKacarr/QR-Pizza.git
 cd qr-pizza
 ```
 
@@ -198,4 +200,4 @@ Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICE
 
 Proje Sahibi - [@AliKacarr](https://github.com/AliKacarr)
 
-Proje Linki: [https://github.com/AliKacarr/qr-pizza](https://github.com/AliKacarr/qr-pizza)
+Proje Linki: [https://github.com/AliKacarr/qr-pizza](https://github.com/AliKacarr/QR-Pizza)
