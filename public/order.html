@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sipariş Detayları</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-lg mx-auto bg-white rounded-lg shadow-lg p-6">
+            <h1 class="text-2xl font-bold text-center mb-6">Sipariş Detayları</h1>
+            <div id="orderDetails" class="space-y-4">
+                <!-- Sipariş detayları buraya dinamik olarak yüklenecek -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // URL'den sipariş ID'sini al
+        const orderId = window.location.pathname.split('/').pop();
+        
+        // Sipariş detaylarını yükle
+        async function loadOrderDetails() {
+            try {
+                const response = await fetch(`/api/orders/${orderId}`);
+                const order = await response.json();
+                
+                const detailsHtml = `
+                    <div class="border-b pb-4">
+                        <p class="font-semibold">Sipariş No: ${order.id}</p>
+                        <p class="font-semibold">Müşteri: ${order.user.name}</p>
+                        <p class="font-semibold">Tarih: ${new Date(order.createdAt).toLocaleString('tr-TR')}</p>
+                        <p class="font-semibold">Durum: ${getStatusText(order.status)}</p>
+                    </div>
+                    <div class="border-b pb-4">
+                        <h2 class="font-bold text-lg mb-2">Sipariş İçeriği:</h2>
+                        <ul class="space-y-2">
+                            ${order.items.map(item => `
+                                <li class="flex justify-between">
+                                    <span>${item.pizza.name} (${item.quantity} adet)</span>
+                                    <span>${item.price} TL</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    <div class="text-right font-bold text-xl">
+                        Toplam Tutar: ${order.total} TL
+                    </div>
+                `;
+                
+                document.getElementById('orderDetails').innerHTML = detailsHtml;
+            } catch (error) {
+                console.error('Sipariş detayları yüklenirken hata oluştu:', error);
+                document.getElementById('orderDetails').innerHTML = '<p class="text-red-500">Sipariş detayları yüklenirken bir hata oluştu.</p>';
+            }
+        }
+
+        function getStatusText(status) {
+            const statusMap = {
+                'PENDING': 'Beklemede',
+                'CONFIRMED': 'Onaylandı',
+                'PREPARING': 'Hazırlanıyor',
+                'READY': 'Hazır',
+                'DELIVERED': 'Teslim Edildi',
+                'CANCELLED': 'İptal Edildi'
+            };
+            return statusMap[status] || status;
+        }
+
+        // Sayfa yüklendiğinde sipariş detaylarını yükle
+        loadOrderDetails();
+    </script>
+</body>
+</html> 
